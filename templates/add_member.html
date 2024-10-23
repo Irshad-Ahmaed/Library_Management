@@ -1,0 +1,24 @@
+<!-- templates/add_member.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Add Member</h1>
+    <form id="addMemberForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <select id="role">
+            <option value="MEMBER">Member</option>
+            <option value="LIBRARIAN">Librarian</option>
+        </select>
+        <button type="submit">Add Member</button>
+    </form>
+    <a href="/manage_members">Back to Members List</a>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
