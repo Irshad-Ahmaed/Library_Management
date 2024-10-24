@@ -115,35 +115,6 @@ function deleteAccount() {
 
 // -------------- Librarian Members Access -----------------
 
-function fetchMembers() {
-    fetch('/books', {
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const memberTable = document.getElementById('memberTable').getElementsByTagName('tbody')[0];
-        memberTable.innerHTML = '';  // Clear previous rows
-         // Check if books data exists and is an array
-         if (Array.isArray(data)) {
-            data.forEach(member => {
-                let row = memberTable.insertRow();
-                row.innerHTML = `
-                    <td>${member.title}</td>
-                    <td>${member.status}</td>
-                    <td>
-                        <button onclick="deleteMember('${member.id}')">Delete</button>
-                    </td>
-                `;
-            });
-        } else {
-            console.error('Books data is not an array:', data);
-        }
-    })
-    .catch(error => console.error('Error fetching books:', error));
-}
-
 // Fetch and display members list (Librarian Only)
 function fetchMembers() {
     fetch('/members', {
@@ -186,8 +157,10 @@ document.getElementById('addMemberForm')?.addEventListener('submit', function(ev
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.msg);
-        window.location.reload();  // Reload the page to update the member list
+        alert(data.message || data.error);
+        if (data.message === "Member added successfully!") {
+            window.location.href = '/manage_members'; 
+        }
     })
     .catch(error => console.error('Error adding member:', error));
 });

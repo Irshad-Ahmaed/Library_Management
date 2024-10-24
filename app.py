@@ -198,8 +198,13 @@ def add_member():
     password = request.json.get('password')  # Hashing should be applied here
     role = request.json.get('role')
 
-    mongo.db.users.insert_one({"username": username, "password": password, "role": role})
-    return jsonify({"msg": "Member added successfully!"}), 201
+    existing_user = mongo.db.users.find_one({"username": username})
+    if existing_user:
+        return jsonify({"error": "Username already exists"}), 400
+    
+    hashed_password = generate_password_hash(password)
+    mongo.db.users.insert_one({"username": username, "password": hashed_password, "role": role})
+    return jsonify({"message": "Member added successfully!"}), 201
 
 # Update Member (Librarian Only)
 @app.route('/members/<id>', methods=['PATCH'])
