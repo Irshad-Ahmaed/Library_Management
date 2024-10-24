@@ -7,17 +7,19 @@ http://13.60.213.255:5000
 hosted on AWS
 
 ## Steps followed to host in AWS:
-    - Create an EC2 Instance ('Ubuntu Free Tier' in my case).
-    - After creating EC2 Instance Connect it.
-    - After Connect Console of EC2 Instance appear.
+1. Create an EC2 Instance ('Ubuntu Free Tier' in my case).
 
-1. **put below command one by one to install dependencies**:
+2. After creating EC2 Instance Connect it.
+
+3. After Connect Console of EC2 Instance appear.
+
+4. **put below command one by one to install dependencies**:
     ```sh
         sudo apt update
         sudo apt upgrade -y
         sudo apt install python3-pip python3-venv nginx tmux -y
 
-2. **Now Clone the repository:**
+5. **Now Clone the repository:**
     ```sh
     git clone https://github.com/Irshad-Ahmaed/Library_Management.git
     cd Library_Management
@@ -81,12 +83,9 @@ This will run the Flask app on 0.0.0.0 (all interfaces), allowing it to be acces
     sudo nginx -t
     sudo systemctl restart nginx
 
+Now your website should be live on your public  IP address. You can access it by visiting <http://Public_IP> in your web browser.
 
-
-
-
-
-
+                -------------- Hosting Step End ---------------------
 
 
 ##   Database diagram representing relationships between tables:
