@@ -11,17 +11,18 @@ http://13.60.213.255:5000
     2. **After creating EC2 Instance Connect it.**
     3. **After Connect Console of EC2 Instance appear.**
     4. **put below command one by one to install dependencies:**
-        ```sh
-    sudo apt update
-    sudo apt upgrade -y
-    sudo apt install python3-pip python3-venv nginx tmux -y
     
+    - sudo apt update
+    - sudo apt upgrade -y
+    - sudo apt install python3-pip python3-venv nginx tmux -y
     
     5. **Now Clone the repository:**
-    git clone https://github.com/Irshad-Ahmaed/Library_Management.git
-    cd Library_Management
+        <!-- ```sh -->
+        git clone https://github.com/Irshad-Ahmaed/Library_Management.git
+        cd Library_Management
+        
 
-    ### Set Up Virtual Environment:
+### Set Up Virtual Environment:
     Create and activate the virtual environment:
     - python3 -m venv venv
     - source venv/bin/activate
