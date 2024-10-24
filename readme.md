@@ -33,4 +33,4 @@ This is a **Library Management System** built using Flask for the backend and Mo
 
 
 ## Table Structure & API Documentation
-    https://docs.google.com/document/d/1en4juWRdImtvgUXSKVXmJ4jdm_d8IBbCdnR8qYBcjho/edit?usp=sharing
+https://docs.google.com/document/d/1en4juWRdImtvgUXSKVXmJ4jdm_d8IBbCdnR8qYBcjho/edit?usp=sharing
