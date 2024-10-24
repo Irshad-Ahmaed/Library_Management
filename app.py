@@ -257,6 +257,17 @@ def borrow_book(id):
     if current_user['role'] != 'MEMBER':
         return jsonify({"msg": "Access denied."}), 403
 
+    # status = request.json.get('status')
+    status = mongo.db.books.find_one({"_id": ObjectId(id)})
+    print(status)
+    for stat in status:
+        # print(stat)
+        if status['status'] == "BORROWED" and status['borrowed_by'] == current_user['username']:
+            return jsonify({"msg": "You can't borrow again until return!"}), 400
+    
+        if status['status'] == "BORROWED":
+            return jsonify({"msg": "Book already borrowed!"}), 400
+
     # Mark book as borrowed and save the borrower's information
     mongo.db.books.update_one(
         {"_id": ObjectId(id)}, 
