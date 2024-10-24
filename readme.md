@@ -3,10 +3,10 @@
 This is a **Library Management System** built using Flask for the backend and MongoDB for database management. The frontend is a simple HTML/JS application, and JWT-based authentication is used for role-based access.
 
 ##   Database diagram representing relationships between tables:
-    - https://drive.google.com/file/d/1IO1By98eNxyqMqSTqbVrB3QTCw2jqWvv/view?usp=drive_link
+    https://drive.google.com/file/d/1IO1By98eNxyqMqSTqbVrB3QTCw2jqWvv/view?usp=drive_link
 
 ##   Flow of the Software:
-    - https://docs.google.com/document/d/19kdQre41UA2_HE_SorKn8brEF8kUSaHb1zuvzfVapJE/edit?usp=sharing
+    https://docs.google.com/document/d/19kdQre41UA2_HE_SorKn8brEF8kUSaHb1zuvzfVapJE/edit?usp=sharing
 
 
 ## Project Setup
@@ -32,21 +32,5 @@ This is a **Library Management System** built using Flask for the backend and Mo
 - Project should now be running at http://127.0.0.1:5000/
 
 
-## Table Structure:
- 
-### Users Collection
-
-    - _id: ObjectId (Primary Key)
-    - username: String
-    - password: String (Hashed)
-    - role: String (Values: 'MEMBER', 'LIBRARIAN')
-
-### Books Collection
-
-    - _id: ObjectId (Primary Key)
-    - title: String
-    - status: String (Values: 'AVAILABLE', 'BORROWED')
-    
-
-## API Documentation
-    - https://docs.google.com/document/d/1en4juWRdImtvgUXSKVXmJ4jdm_d8IBbCdnR8qYBcjho/edit?usp=sharing
+## Table Structure & API Documentation
+    https://docs.google.com/document/d/1en4juWRdImtvgUXSKVXmJ4jdm_d8IBbCdnR8qYBcjho/edit?usp=sharing
