@@ -259,7 +259,7 @@ document.getElementById('addBookForm')?.addEventListener('submit', function(even
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.msg);
+        alert(data.message || data.error);
         window.location.href = '/book_list';  // Redirect to book list
         fetchBooks();
     })

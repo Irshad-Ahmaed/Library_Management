@@ -156,12 +156,10 @@ def add_book():
         return jsonify({"msg": "Access denied."}), 403
 
     title = request.json.get('title')
-    author = request.json.get('author')  # Include author
-    if not title | author:
-        return jsonify({"msg": "Title or author is missing."}), 400
+    author = request.json.get('author')
     
     mongo.db.books.insert_one({"title": title, "author": author, "status": "AVAILABLE"})
-    return jsonify({"msg": "Book added successfully!"}), 201
+    return jsonify({"message": "Book added successfully!"}), 201
 
 # Update Book
 @app.route('/books/<id>', methods=['PUT'])
