@@ -103,9 +103,9 @@ def login():
 def dashboard():
     current_user = get_jwt_identity()
     if current_user['role'] == 'LIBRARIAN':
-        return render_template('dashboard.html')
+        return render_template('dashboard.html', Welcome="Welcome to your dashboard!")
     else:
-        return render_template('member_dashboard.html')
+        return render_template('member_dashboard.html', Welcome="Welcome to your dashboard!")
 
 # Logout
 @app.route('/logout', methods=['POST'])
@@ -134,7 +134,7 @@ def delete_account():
 @app.route('/books', methods=['GET'])
 @jwt_required()
 def view_books():
-    books = mongo.db.books.find()
+    books = mongo.db.books.find({})
     output = []
     for book in books:
         output.append({
@@ -194,9 +194,12 @@ def add_member():
     if current_user['role'] != 'LIBRARIAN':
         return jsonify({"msg": "Access denied."}), 403
 
-    username = request.json.get('username')
-    password = request.json.get('password')  # Hashing should be applied here
-    role = request.json.get('role')
+    data = request.get_json()
+
+    username = data['username']
+    password = data['password']# Hashing should be applied here
+    role = data['role']
+    # role = request.json.get('role')
 
     existing_user = mongo.db.users.find_one({"username": username})
     if existing_user:
@@ -260,13 +263,12 @@ def borrow_book(id):
     # status = request.json.get('status')
     status = mongo.db.books.find_one({"_id": ObjectId(id)})
     print(status)
-    for stat in status:
-        # print(stat)
-        if status['status'] == "BORROWED" and status['borrowed_by'] == current_user['username']:
-            return jsonify({"msg": "You can't borrow again until return!"}), 400
     
-        if status['status'] == "BORROWED":
-            return jsonify({"msg": "Book already borrowed!"}), 400
+    if status['status'] == "BORROWED" and status['borrowed_by'] == current_user['username']:
+        return jsonify({"msg": "You can't borrow again until return!"}), 400
+
+    if status['status'] == "BORROWED":
+        return jsonify({"msg": "Book already borrowed!"}), 400
 
     # Mark book as borrowed and save the borrower's information
     mongo.db.books.update_one(
@@ -284,12 +286,20 @@ def return_book(id):
     if current_user['role'] != 'MEMBER':
         return jsonify({"msg": "Access denied."}), 403
 
+    status = mongo.db.books.find_one({"_id": ObjectId(id)})
+
+    if status['status'] == "AVAILABLE":
+        return jsonify({"msg": "Borrow the book first to return!"}), 400
+        
+    if status['status'] == "BORROWED" and status['borrowed_by'] != current_user['username']:
+        return jsonify({"msg": "You didn't borrowed the book!"}), 400
+    
     # Mark book as returned and remove the borrower info
     mongo.db.books.update_one(
         {"_id": ObjectId(id)}, 
         {"$set": {"status": "AVAILABLE"}, "$unset": {"borrowed_by": ""}}
     )
-
+    
     return jsonify({"msg": "Book returned successfully!"}), 200
 
 
